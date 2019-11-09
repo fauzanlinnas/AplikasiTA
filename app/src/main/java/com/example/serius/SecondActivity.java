@@ -29,7 +29,7 @@ public class SecondActivity extends AppCompatActivity {
     private FloatingActionButton fabAddRequest;
     private ListView listView;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference reqRef;
+    private DatabaseReference donorRef;
     private ArrayList<UserProfile> userProfileArrayList;
     private UserProfile userProfile;
 
@@ -46,11 +46,11 @@ public class SecondActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        reqRef = firebaseDatabase.getReference("Users");
+        donorRef = firebaseDatabase.getReference("Users");
         userProfileArrayList = new ArrayList<>();
         final UsersAdapter adapter = new UsersAdapter(this, userProfileArrayList);
 
-        reqRef.addValueEventListener(new ValueEventListener() {
+        donorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
@@ -91,6 +91,10 @@ public class SecondActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logoutMenu: {
                 Logout();
+                break;
+            }
+            case R.id.requestList: {
+                startActivity(new Intent(SecondActivity.this ,RequestList.class));
                 break;
             }
             case R.id.profileMenu: {
