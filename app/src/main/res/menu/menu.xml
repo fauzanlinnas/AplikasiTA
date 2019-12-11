@@ -10,6 +10,13 @@
     </item>
 
     <item
+        android:id="@+id/requestList"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:title="Request">
+    </item>
+
+    <item
         android:id="@+id/profileMenu"
         android:orderInCategory="200"
         app:showAsAction="never"
@@ -21,6 +28,13 @@
         android:orderInCategory="300"
         app:showAsAction="never"
         android:title="Refresh">
+    </item>
+
+    <item
+        android:id="@+id/wekaMenu"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:title="Weka">
     </item>
 
 </menu>

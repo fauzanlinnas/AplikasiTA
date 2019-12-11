@@ -101,6 +101,10 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
                 break;
             }
+            case R.id.wekaMenu: {
+                startActivity(new Intent(SecondActivity.this, WekaActivity.class));
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
