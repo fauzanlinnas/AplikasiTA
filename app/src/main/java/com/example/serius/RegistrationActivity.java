@@ -30,11 +30,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText userName, userEmail, userPassword, userAge;
     private EditText userTelepon, userAddress, userGoldar, userPenyakit;
+    private EditText userRecency, userFrequency, userTime;
+    String[] dataDonorArr = new String[3];
+    List<String> dataDonor;
     private Button regButton;
     private TextView userLogin;
     private FirebaseAuth firebaseAuth;
@@ -130,6 +135,9 @@ public class RegistrationActivity extends AppCompatActivity {
         userPenyakit = findViewById(R.id.etPenyakitUpdate);
         regButton = findViewById(R.id.btnRegister);
         userLogin = findViewById(R.id.tvUserLogin);
+        userRecency = findViewById(R.id.etRecency);
+        userFrequency = findViewById(R.id.etFrequency);
+        userTime = findViewById(R.id.etTime);
     }
 
     private Boolean validate() {
@@ -142,8 +150,11 @@ public class RegistrationActivity extends AppCompatActivity {
         telepon = userTelepon.getText().toString();
         age = userAge.getText().toString();
         goldar = userGoldar.getText().toString();
-        penyakit = userPenyakit. getText().toString();
-
+        penyakit = userPenyakit.getText().toString();
+        dataDonorArr[0] = userRecency.getText().toString();
+        dataDonorArr[1] = userFrequency.getText().toString();
+        dataDonorArr[2] = userTime.getText().toString();
+        dataDonor = Arrays.asList(dataDonorArr);
 
         if (name.isEmpty() || password.isEmpty() || email.isEmpty() || age.isEmpty() || imagePath == null
                 || address.isEmpty() || telepon.isEmpty() || goldar.isEmpty() || penyakit.isEmpty()) {
@@ -191,7 +202,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
             }
         });
-        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit);
+        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor);
         userRef.setValue(userProfile);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.serius;
 
+import java.util.List;
+
 public class UserProfile {
     public String userEmail;
     public String userName;
@@ -8,13 +10,13 @@ public class UserProfile {
     public String userAge;
     public String userGoldar;
     public String userPenyakit;
-    public double[] dataDonor;
+    public List<String> dataDonor;
 
     public UserProfile() {
     }
 
     public UserProfile(String _userEmail, String _userName, String _userAddress, String _userTelepon,
-                       String _userAge, String _userGoldar, String _userPenyakit, double[] _dataDonor) {
+                       String _userAge, String _userGoldar, String _userPenyakit, List<String> _dataDonor) {
 
         this.userEmail = _userEmail;
         this.userName = _userName;
@@ -54,11 +56,11 @@ public class UserProfile {
 
     public void setUserTelepon(String userTelepon) { this.userTelepon = userTelepon; }
 
-    public double[] getDataDonor() {
+    public List<String> getDataDonor() {
         return dataDonor;
     }
 
-    public void setDataDonor(double[] dataDonor) {
+    public void setDataDonor(List<String> dataDonor) {
         this.dataDonor = dataDonor;
     }
 }

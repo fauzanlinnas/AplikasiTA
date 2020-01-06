@@ -99,6 +99,36 @@
             android:hint="Penyakit"
             android:inputType="textShortMessage" />
 
+        <EditText
+            android:id="@+id/etRecency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Jumlah bulan terakhir donor"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etFrequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Jumlah donor"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Jumlah bulan sejak donor pertama kali"
+            android:inputType="number" />
+
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
