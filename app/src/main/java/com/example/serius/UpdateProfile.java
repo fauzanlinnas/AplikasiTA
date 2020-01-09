@@ -37,6 +37,7 @@ public class UpdateProfile extends AppCompatActivity {
     private EditText newUserName, newUserEmail, newUserAge;
     private EditText newUserAddress, newUserTelepon, newUserGoldar, newUserPenyakit;
     List<String> newDataDonor;
+    double newUserWillDonor;
     private Button save;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -94,6 +95,7 @@ public class UpdateProfile extends AppCompatActivity {
                 newUserGoldar.setText(userProfile.getUserGoldar());
                 newUserPenyakit.setText(userProfile.getUserPenyakit());
                 newDataDonor = userProfile.getDataDonor();
+                newUserWillDonor = userProfile.getUserWillDonor();
             }
 
             @Override
@@ -122,7 +124,7 @@ public class UpdateProfile extends AppCompatActivity {
                 String penyakit = newUserPenyakit.getText().toString();
                 List<String> dataDonor = newDataDonor;
 
-                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor);
+                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor, newUserWillDonor);
 
                 databaseReference.setValue(userProfile);
 

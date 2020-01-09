@@ -11,12 +11,13 @@ public class UserProfile {
     public String userGoldar;
     public String userPenyakit;
     public List<String> dataDonor;
+    public double userWillDonor;
 
     public UserProfile() {
     }
 
     public UserProfile(String _userEmail, String _userName, String _userAddress, String _userTelepon,
-                       String _userAge, String _userGoldar, String _userPenyakit, List<String> _dataDonor) {
+                       String _userAge, String _userGoldar, String _userPenyakit, List<String> _dataDonor, double _userWillDonor) {
 
         this.userEmail = _userEmail;
         this.userName = _userName;
@@ -26,6 +27,7 @@ public class UserProfile {
         this.userGoldar = _userGoldar;
         this.userPenyakit = _userPenyakit;
         this.dataDonor = _dataDonor;
+        this.userWillDonor = _userWillDonor;
     }
 
     public String getUserAge() { return userAge; }
@@ -62,5 +64,9 @@ public class UserProfile {
 
     public void setDataDonor(List<String> dataDonor) {
         this.dataDonor = dataDonor;
+    }
+
+    public double getUserWillDonor() {
+        return userWillDonor;
     }
 }

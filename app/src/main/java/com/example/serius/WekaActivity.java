@@ -16,8 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import javax.sql.DataSource;
-
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
