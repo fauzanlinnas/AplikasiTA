@@ -30,11 +30,14 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UpdateProfile extends AppCompatActivity {
 
     private EditText newUserName, newUserEmail, newUserAge;
     private EditText newUserAddress, newUserTelepon, newUserGoldar, newUserPenyakit;
+    List<String> newDataDonor;
+    double newUserWillDonor;
     private Button save;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -91,6 +94,8 @@ public class UpdateProfile extends AppCompatActivity {
                 newUserAge.setText(userProfile.getUserAge());
                 newUserGoldar.setText(userProfile.getUserGoldar());
                 newUserPenyakit.setText(userProfile.getUserPenyakit());
+                newDataDonor = userProfile.getDataDonor();
+                newUserWillDonor = userProfile.getUserWillDonor();
             }
 
             @Override
@@ -117,9 +122,9 @@ public class UpdateProfile extends AppCompatActivity {
                 String age = newUserAge.getText().toString();
                 String goldar = newUserGoldar.getText().toString();
                 String penyakit = newUserPenyakit.getText().toString();
+                List<String> dataDonor = newDataDonor;
 
-
-                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit);
+                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor, newUserWillDonor);
 
                 databaseReference.setValue(userProfile);
 

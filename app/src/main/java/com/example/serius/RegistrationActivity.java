@@ -5,10 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,20 +32,37 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
+import weka.classifiers.Classifier;
+import weka.core.Attribute;
+import weka.core.DenseInstance;
+import weka.core.Instances;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText userName, userEmail, userPassword, userAge;
     private EditText userTelepon, userAddress, userGoldar, userPenyakit;
+    private EditText userRecency, userFrequency, userTime;
+    String[] dataDonorArr = new String[3];
+    List<String> dataDonor;
     private Button regButton;
     private TextView userLogin;
     private FirebaseAuth firebaseAuth;
     private ImageView userProfilePic;
+
     String email, name, age, password, address, telepon, goldar, penyakit;
+
     private FirebaseStorage firebaseStorage;
     private static int PICK_IMAGE = 123;
     Uri imagePath;
     private StorageReference storageReference;
+
+    private Classifier mClassifier = null;
+    private double hasilClassify;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -81,12 +100,13 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-
-
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (validate()) {
+                    // Run weka
+                    wekaLoadModel();
+
                     //Upload data to the database
                     String user_email = userEmail.getText().toString().trim();
                     String user_password = userPassword.getText().toString().trim();
@@ -130,6 +150,9 @@ public class RegistrationActivity extends AppCompatActivity {
         userPenyakit = findViewById(R.id.etPenyakitUpdate);
         regButton = findViewById(R.id.btnRegister);
         userLogin = findViewById(R.id.tvUserLogin);
+        userRecency = findViewById(R.id.etRecency);
+        userFrequency = findViewById(R.id.etFrequency);
+        userTime = findViewById(R.id.etTime);
     }
 
     private Boolean validate() {
@@ -142,8 +165,11 @@ public class RegistrationActivity extends AppCompatActivity {
         telepon = userTelepon.getText().toString();
         age = userAge.getText().toString();
         goldar = userGoldar.getText().toString();
-        penyakit = userPenyakit. getText().toString();
-
+        penyakit = userPenyakit.getText().toString();
+        dataDonorArr[0] = userRecency.getText().toString();
+        dataDonorArr[1] = userFrequency.getText().toString();
+        dataDonorArr[2] = userTime.getText().toString();
+        dataDonor = Arrays.asList(dataDonorArr);
 
         if (name.isEmpty() || password.isEmpty() || email.isEmpty() || age.isEmpty() || imagePath == null
                 || address.isEmpty() || telepon.isEmpty() || goldar.isEmpty() || penyakit.isEmpty()) {
@@ -153,6 +179,69 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    public void wekaLoadModel() {
+        AssetManager assetManager = getAssets();
+        try {
+            mClassifier = (Classifier) weka.core.SerializationHelper.read(assetManager.open("donordarah.model"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Weka "catch'em all!"
+            e.printStackTrace();
+        }
+
+        if(mClassifier==null){
+            Toast.makeText(this, "Model not loaded!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // we need those for creating new instances later
+        // order of attributes/classes needs to be exactly equal to those used for training
+        final Attribute attributeRecency = new Attribute("recency");
+        final Attribute attributeFrequency = new Attribute("frequency");
+        final Attribute attributeTime = new Attribute("time");
+        final List<String> classes = new ArrayList<String>() {
+            {
+                add("tidak donor"); // cls nr 1
+                add("donor"); // cls nr 2
+            }
+        };
+
+        // Instances(...) requires ArrayList<> instead of List<>...
+        ArrayList<Attribute> attributeList = new ArrayList<Attribute>(2) {
+            {
+                add(attributeRecency);
+                add(attributeFrequency);
+                add(attributeTime);
+                Attribute attributeClass = new Attribute("@@class@@", classes);
+                add(attributeClass);
+            }
+        };
+        // unpredicted data sets (reference to sample structure for new instances)
+        Instances dataUnpredicted = new Instances("TestInstances",
+                attributeList, 1);
+        // last feature is target variable
+        dataUnpredicted.setClassIndex(dataUnpredicted.numAttributes() - 1);
+
+        // create new instance: this one should fall into the setosa domain
+        DenseInstance newInstance = new DenseInstance(dataUnpredicted.numAttributes()) {
+            {
+                setValue(attributeRecency, Double.parseDouble(dataDonorArr[0]));
+                setValue(attributeFrequency, Double.parseDouble(dataDonorArr[1]));
+                setValue(attributeTime, Double.parseDouble(dataDonorArr[2]));
+            }
+        };
+        // reference to dataset
+        newInstance.setDataset(dataUnpredicted);
+
+        // predict new sample
+        try {
+            hasilClassify = mClassifier.classifyInstance(newInstance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendEmailVerification() {
@@ -191,7 +280,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
             }
         });
-        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit);
+        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor, hasilClassify);
         userRef.setValue(userProfile);
     }
 }

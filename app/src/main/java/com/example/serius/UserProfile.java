@@ -1,5 +1,7 @@
 package com.example.serius;
 
+import java.util.List;
+
 public class UserProfile {
     public String userEmail;
     public String userName;
@@ -8,19 +10,24 @@ public class UserProfile {
     public String userAge;
     public String userGoldar;
     public String userPenyakit;
+    public List<String> dataDonor;
+    public double userWillDonor;
 
     public UserProfile() {
     }
 
-    public UserProfile(String userEmail, String userName, String userAddress, String userTelepon, String userAge, String userGoldar, String userPenyakit) {
+    public UserProfile(String _userEmail, String _userName, String _userAddress, String _userTelepon,
+                       String _userAge, String _userGoldar, String _userPenyakit, List<String> _dataDonor, double _userWillDonor) {
 
-        this.userEmail = userEmail;
-        this.userName = userName;
-        this.userAddress = userAddress;
-        this.userTelepon = userTelepon;
-        this.userAge = userAge;
-        this.userGoldar = userGoldar;
-        this.userPenyakit = userPenyakit;
+        this.userEmail = _userEmail;
+        this.userName = _userName;
+        this.userAddress = _userAddress;
+        this.userTelepon = _userTelepon;
+        this.userAge = _userAge;
+        this.userGoldar = _userGoldar;
+        this.userPenyakit = _userPenyakit;
+        this.dataDonor = _dataDonor;
+        this.userWillDonor = _userWillDonor;
     }
 
     public String getUserAge() { return userAge; }
@@ -50,4 +57,16 @@ public class UserProfile {
     public String getUserTelepon() { return userTelepon; }
 
     public void setUserTelepon(String userTelepon) { this.userTelepon = userTelepon; }
+
+    public List<String> getDataDonor() {
+        return dataDonor;
+    }
+
+    public void setDataDonor(List<String> dataDonor) {
+        this.dataDonor = dataDonor;
+    }
+
+    public double getUserWillDonor() {
+        return userWillDonor;
+    }
 }
