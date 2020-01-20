@@ -2,12 +2,20 @@ package com.example.serius;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,6 +46,7 @@ public class SecondActivity extends AppCompatActivity {
     private DatabaseReference donorRef;
     private ArrayList<UserProfile> userProfileArrayList;
     private UserProfile userProfile;
+    private FireMissilesDialogFragment exampleDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,7 @@ public class SecondActivity extends AppCompatActivity {
         listView = findViewById(R.id.lvDonorList);
 
         userProfile = new UserProfile();
+        exampleDialog = new FireMissilesDialogFragment();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -59,9 +69,11 @@ public class SecondActivity extends AppCompatActivity {
         donorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                adapter.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    Log.i("dataSnapshot", String.valueOf(ds));
                     userProfile = ds.getValue(UserProfile.class);
-                    if (userProfile.userWillDonor == 1) {
+                    if (userProfile.userWillDonor == 0 && !(ds.getKey().equals(firebaseAuth.getUid()))) {
                         adapter.add(userProfile);
                     }
                 }
@@ -84,9 +96,26 @@ public class SecondActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DatabaseReference userRef = donorRef.child(String.valueOf(userProfileArrayList.get(i).userToken)).child("dataRequested");
+                userRef.setValue(firebaseAuth.getUid());
                 // Toast.makeText(SecondActivity.this, String.valueOf(userProfileArrayList.get(i).userName), Toast.LENGTH_SHORT).show();
-                FireMissilesDialogFragment exampleDialog = new FireMissilesDialogFragment();
-                exampleDialog.show(getSupportFragmentManager(), "example dialog");
+                // sendNotification("You have been requested");
+            }
+        });
+
+        DatabaseReference notifRef = donorRef.child(firebaseAuth.getUid()).child("dataRequested");
+        notifRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("SecondActivity", String.valueOf(dataSnapshot.getValue()));
+                if (dataSnapshot.getValue() != null) {
+                    sendNotification("You have been requested");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -100,6 +129,7 @@ public class SecondActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // FIRE ZE MISSILES!
+                            Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -110,6 +140,37 @@ public class SecondActivity extends AppCompatActivity {
             // Create the AlertDialog object and return it
             return builder.create();
         }
+    }
+
+    private void sendNotification(String messageBody) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        String channelId = getString(R.string.default_notification_channel_id);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.notify_icon)
+                        .setContentTitle(getString(R.string.fcm_message))
+                        .setContentText(messageBody)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
     public void Logout() {

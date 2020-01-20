@@ -37,10 +37,9 @@
         android:id="@+id/btnRequestAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="132dp"
         android:text="Add request"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRequestTelepon" />
 
@@ -78,5 +77,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/datePicker"
+        android:layout_width="185dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="24dp"
+        android:text="Pilih Tanggal"
+        app:layout_constraintEnd_toEndOf="@+id/etRequestTelepon"
+        app:layout_constraintTop_toBottomOf="@+id/etRequestTelepon" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Butuh hingga tanggal:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/datePicker"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/etRequestTelepon"
+        app:layout_constraintTop_toBottomOf="@+id/etRequestTelepon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ public class UserProfile {
     public String userAge;
     public String userGoldar;
     public String userPenyakit;
+    public String userToken;
     public List<String> dataDonor;
     public double userWillDonor;
 
@@ -17,7 +18,8 @@ public class UserProfile {
     }
 
     public UserProfile(String _userEmail, String _userName, String _userAddress, String _userTelepon,
-                       String _userAge, String _userGoldar, String _userPenyakit, List<String> _dataDonor, double _userWillDonor) {
+                       String _userAge, String _userGoldar, String _userPenyakit, String _userToken,
+                       List<String> _dataDonor, double _userWillDonor) {
 
         this.userEmail = _userEmail;
         this.userName = _userName;
@@ -26,6 +28,7 @@ public class UserProfile {
         this.userAge = _userAge;
         this.userGoldar = _userGoldar;
         this.userPenyakit = _userPenyakit;
+        this.userToken = _userToken;
         this.dataDonor = _dataDonor;
         this.userWillDonor = _userWillDonor;
     }
@@ -68,5 +71,9 @@ public class UserProfile {
 
     public double getUserWillDonor() {
         return userWillDonor;
+    }
+
+    public String getUserToken() {
+        return userToken;
     }
 }
