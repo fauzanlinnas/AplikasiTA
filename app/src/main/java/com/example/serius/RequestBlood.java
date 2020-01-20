@@ -1,19 +1,25 @@
 package com.example.serius;
 
+import java.util.Date;
+
 public class RequestBlood {
     public String name;
     public String goldar;
     public String jumlah;
     public String hape;
+    public String uId;
+    public String date;
 
     public RequestBlood() {
     }
 
-    public RequestBlood(String name, String goldar, String jumlah, String hape) {
-        this.name = name;
-        this.goldar = goldar;
-        this.jumlah = jumlah;
-        this.hape = hape;
+    public RequestBlood(String _name, String _goldar, String _jumlah, String _hape, String _uId, String _date) {
+        this.name = _name;
+        this.goldar = _goldar;
+        this.jumlah = _jumlah;
+        this.hape = _hape;
+        this.uId = _uId;
+        this.date = _date;
     }
 
     public String getName() { return name; }

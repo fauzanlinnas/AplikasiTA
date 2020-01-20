@@ -27,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ImageView userProfilePic;
 
-    String email, name, age, password, address, telepon, goldar, penyakit;
+    String email, name, age, password, address, telepon, goldar, penyakit, token;
 
     private FirebaseStorage firebaseStorage;
     private static int PICK_IMAGE = 123;
@@ -171,6 +173,7 @@ public class RegistrationActivity extends AppCompatActivity {
         dataDonorArr[2] = userTime.getText().toString();
         dataDonor = Arrays.asList(dataDonorArr);
 
+
         if (name.isEmpty() || password.isEmpty() || email.isEmpty() || age.isEmpty() || imagePath == null
                 || address.isEmpty() || telepon.isEmpty() || goldar.isEmpty() || penyakit.isEmpty()) {
             Toast.makeText(this, "Please enter all the details!", Toast.LENGTH_SHORT).show();
@@ -280,7 +283,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
             }
         });
-        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, dataDonor, hasilClassify);
+        token = firebaseAuth.getUid();
+        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, token, dataDonor, hasilClassify);
         userRef.setValue(userProfile);
     }
 }
