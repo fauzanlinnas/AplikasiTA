@@ -192,7 +192,7 @@ public class SecondActivity extends AppCompatActivity {
                 break;
             }
             case R.id.requested: {
-                // startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
+                startActivity(new Intent(SecondActivity.this, YourRequested.class));
                 break;
             }
         }

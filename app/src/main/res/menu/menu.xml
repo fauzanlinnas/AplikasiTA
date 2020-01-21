@@ -27,7 +27,7 @@
         android:id="@+id/requested"
         android:orderInCategory="200"
         app:showAsAction="never"
-        android:title="Request">
+        android:title="Request Detail">
     </item>
 
 </menu>
