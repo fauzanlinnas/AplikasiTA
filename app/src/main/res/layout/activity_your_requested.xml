@@ -6,4 +6,217 @@
     android:layout_height="match_parent"
     tools:context=".YourRequested">
 
+    <TextView
+        android:id="@+id/tvYouAreRequested"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="You are requested by:"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRequestedName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Nama"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYouAreRequested"
+        app:layout_constraintTop_toBottomOf="@+id/tvYouAreRequested" />
+
+    <TextView
+        android:id="@+id/tvRequestedName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Nama"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedName"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedName" />
+
+    <TextView
+        android:id="@+id/tvRequestedGoldar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Golongan Darah"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedName2"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedName2" />
+
+    <TextView
+        android:id="@+id/tvRequestedGoldar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Golongan Darah"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedGoldar"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedGoldar" />
+
+    <TextView
+    android:id="@+id/tvRequestedJumlah"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="8dp"
+    android:text="Jumlah kebutuhan kantong"
+    android:textSize="18sp"
+    app:layout_constraintStart_toStartOf="@+id/tvRequestedGoldar2"
+    app:layout_constraintTop_toBottomOf="@+id/tvRequestedGoldar2" />
+
+    <TextView
+        android:id="@+id/tvRequestedJumlah2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Jumlah kebutuhan kantong"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedJumlah"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedJumlah" />
+
+    <TextView
+        android:id="@+id/tvRequestedHape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="No. Telepon"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedJumlah2"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedJumlah2" />
+
+    <TextView
+        android:id="@+id/tvRequestedHape2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="No. Telepon"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRequestedHape"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestedHape" />
+
+
+
+
+    <!-- Your Request -->
+
+    <TextView
+        android:id="@+id/tvYourRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="348dp"
+        android:text="Your request:"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvYourRequestName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Nama"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequest"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequest" />
+
+    <TextView
+        android:id="@+id/tvYourRequestName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Nama"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestName"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestName" />
+
+    <TextView
+        android:id="@+id/tvYourRequestGoldar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Golongan Darah"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestName2"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestName2" />
+
+    <TextView
+        android:id="@+id/tvYourRequestGoldar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Golongan Darah"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestGoldar"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestGoldar" />
+
+    <TextView
+        android:id="@+id/tvYourRequestJumlah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Jumlah kebutuhan kantong"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestGoldar2"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestGoldar2" />
+
+    <TextView
+        android:id="@+id/tvYourRequestJumlah2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="Jumlah kebutuhan kantong"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestJumlah"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestJumlah" />
+
+    <TextView
+        android:id="@+id/tvYourRequestHape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="No. Telepon"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestJumlah2"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestJumlah2" />
+
+    <TextView
+        android:id="@+id/tvYourRequestHape2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="No. Telepon"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvYourRequestHape"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourRequestHape" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

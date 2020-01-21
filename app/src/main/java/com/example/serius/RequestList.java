@@ -80,7 +80,8 @@ public class RequestList extends AppCompatActivity {
         fabAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reqRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference myReqRef = reqRef.child(firebaseAuth.getUid());
+                myReqRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Log.d("RequestListGetUid", String.valueOf(dataSnapshot.getValue()));
