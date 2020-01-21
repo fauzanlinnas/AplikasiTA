@@ -3,8 +3,12 @@ package com.example.serius;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,11 +39,11 @@ public class RequestList extends AppCompatActivity {
         setContentView(R.layout.activity_request_list);
 
         listView = findViewById(R.id.lvRequestList);
+        fabAddRequest = findViewById(R.id.fabAddRequest);
 
         requestBlood = new RequestBlood();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         reqRef = firebaseDatabase.getReference("Request");
         requestBloodArrayList = new ArrayList<>();
@@ -51,10 +55,11 @@ public class RequestList extends AppCompatActivity {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     requestBlood = ds.getValue(RequestBlood.class);
 
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     Date dateObj = null;
                     try {
                         dateObj = simpleDateFormat.parse(requestBlood.date);
+                        Log.d("TryBerhasil", String.valueOf(dateObj));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -69,6 +74,29 @@ public class RequestList extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        fabAddRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reqRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.d("RequestListGetUid", String.valueOf(dataSnapshot.getValue()));
+                        Log.d("RequestList", String.valueOf(reqRef.child(firebaseAuth.getUid())));
+                        if (dataSnapshot.getValue() == null) {
+                            startActivity(new Intent(RequestList.this, RequestActivity.class));
+                        } else {
+                            Toast.makeText(RequestList.this, "You have already requested blood", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }

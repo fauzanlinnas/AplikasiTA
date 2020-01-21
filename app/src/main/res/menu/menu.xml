@@ -13,28 +13,21 @@
         android:id="@+id/requestList"
         android:orderInCategory="200"
         app:showAsAction="never"
-        android:title="Request">
+        android:title="Request List">
     </item>
 
     <item
         android:id="@+id/profileMenu"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         app:showAsAction="never"
         android:title="Profile">
     </item>
 
     <item
-        android:id="@+id/refreshMenu"
-        android:orderInCategory="300"
+        android:id="@+id/requested"
+        android:orderInCategory="200"
         app:showAsAction="never"
-        android:title="Refresh">
-    </item>
-
-    <item
-        android:id="@+id/wekaMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Weka">
+        android:title="Request">
     </item>
 
 </menu>

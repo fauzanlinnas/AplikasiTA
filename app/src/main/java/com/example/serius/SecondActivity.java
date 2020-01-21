@@ -40,7 +40,6 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FloatingActionButton fabAddRequest;
     private ListView listView;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference donorRef;
@@ -53,7 +52,6 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        fabAddRequest = findViewById(R.id.fabAddRequest);
         listView = findViewById(R.id.lvDonorList);
 
         userProfile = new UserProfile();
@@ -83,13 +81,6 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
-        fabAddRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SecondActivity.this, RequestActivity.class));
             }
         });
 
@@ -200,8 +191,8 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
                 break;
             }
-            case R.id.wekaMenu: {
-                startActivity(new Intent(SecondActivity.this, WekaActivity.class));
+            case R.id.requested: {
+                // startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
                 break;
             }
         }

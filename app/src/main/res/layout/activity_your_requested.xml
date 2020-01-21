@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
-
-    <ListView
-        android:id="@+id/lvDonorList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"/>
+    tools:context=".YourRequested">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

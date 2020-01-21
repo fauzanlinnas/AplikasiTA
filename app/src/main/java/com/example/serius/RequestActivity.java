@@ -18,23 +18,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class RequestActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private EditText reqName, reqGoldar, reqJumlah, reqTelepon;
     private Button btnReq, reqDate;
     String name, goldar, jumlah, telepon, date;
-    Calendar c;
-    DatePickerDialog dpd;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         reqName = findViewById(R.id.etRequestNama);
         reqGoldar = findViewById(R.id.etRequestGoldar);
@@ -57,8 +56,8 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
                 if (validate()) {
                     // Upload data to database
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Request");
-                    DatabaseReference reqRef = rootRef.push();
-                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, FirebaseAuth.getInstance().getUid(), date);
+                    DatabaseReference reqRef = rootRef.child(firebaseAuth.getUid());
+                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, firebaseAuth.getUid(), date);
                     reqRef.setValue(requestBlood);
                     Toast.makeText(RequestActivity.this, "Request Darah Berhasil", Toast.LENGTH_SHORT).show();
                     finish();
@@ -76,7 +75,7 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
         jumlah = reqJumlah.getText().toString();
         telepon = reqTelepon.getText().toString();
 
-        if (name.isEmpty() || goldar.isEmpty() || jumlah.isEmpty() || telepon.isEmpty()) {
+        if (name.isEmpty() || goldar.isEmpty() || jumlah.isEmpty() || telepon.isEmpty() || date.isEmpty()) {
             Toast.makeText(this, "Tolong isi semua data!", Toast.LENGTH_SHORT).show();
         } else {
             result = true;
