@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".YourRequested"></activity>
+        <activity
+            android:name=".YourRequested"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity android:name=".RequestList" />
         <activity android:name=".RequestActivity" />
         <activity android:name=".UpdatePassword" />
