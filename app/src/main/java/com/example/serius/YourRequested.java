@@ -3,11 +3,13 @@ package com.example.serius;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +56,6 @@ public class YourRequested extends AppCompatActivity {
                 reqDetail.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.d("RequestDetail", String.valueOf(dataSnapshot));
 
                         // IF YOU ARE REQUESTED
                         if (dataSnapshot.getValue() != null) {
@@ -64,13 +65,17 @@ public class YourRequested extends AppCompatActivity {
                             Date dateObj = null;
                             try {
                                 dateObj = simpleDateFormat.parse(requestedBy.date);
-                                Log.d("TryBerhasil", String.valueOf(dateObj));
                             } catch (ParseException e) {
                                 e.printStackTrace();
+                                Log.e("YourRequestedParseError", "onDataChange: ", e);
                             }
 
-                            if (new Date().before(dateObj)) {
-                                setTextRequestedBy();
+                            if (dateObj != null) {
+                                if (new Date().before(dateObj)) {
+                                    setTextRequestedBy();
+                                }
+                            } else {
+                                Toast.makeText(YourRequested.this, "dateObj value is null", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             // IF YOU ARE NOT REQUESTED
@@ -108,6 +113,13 @@ public class YourRequested extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        llAtas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(YourRequested.this, RequestedResponse.class));
             }
         });
     }

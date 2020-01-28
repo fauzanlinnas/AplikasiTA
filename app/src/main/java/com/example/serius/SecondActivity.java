@@ -70,7 +70,6 @@ public class SecondActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    Log.i("dataSnapshot", String.valueOf(ds));
                     userProfile = ds.getValue(UserProfile.class);
                     if (userProfile.userWillDonor == 0 && !(ds.getKey().equals(firebaseAuth.getUid()))) {
                         adapter.add(userProfile);
@@ -99,7 +98,6 @@ public class SecondActivity extends AppCompatActivity {
         notifRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("SecondActivity", String.valueOf(dataSnapshot.getValue()));
                 if (dataSnapshot.getValue() != null) {
                     sendNotification("You have been requested to be a donor");
                 }

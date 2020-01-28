@@ -7,19 +7,23 @@ public class RequestBlood {
     public String goldar;
     public String jumlah;
     public String hape;
-    public String uId;
+    public String namaDokter;
+    public String noTelpRumahSakit;
     public String date;
+    public String uId;
 
     public RequestBlood() {
     }
 
-    public RequestBlood(String _name, String _goldar, String _jumlah, String _hape, String _uId, String _date) {
+    public RequestBlood(String _name, String _goldar, String _jumlah, String _hape, String _namaDokter, String _noTelpRumahSakit, String _date, String _uId) {
         this.name = _name;
         this.goldar = _goldar;
         this.jumlah = _jumlah;
         this.hape = _hape;
-        this.uId = _uId;
+        this.namaDokter = _namaDokter;
+        this.noTelpRumahSakit = _noTelpRumahSakit;
         this.date = _date;
+        this.uId = _uId;
     }
 
     public String getName() { return name; }
@@ -37,4 +41,12 @@ public class RequestBlood {
     public String getJumlah() { return jumlah; }
 
     public void setJumlah(String jumlah) { this.jumlah = jumlah; }
+
+    public String getNamaDokter() {
+        return namaDokter;
+    }
+
+    public String getNoTelpRumahSakit() {
+        return noTelpRumahSakit;
+    }
 }

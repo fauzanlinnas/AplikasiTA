@@ -8,23 +8,43 @@
         android:id="@+id/tvRequestNama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Nama Requester"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvRequestGoldar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Goldar Requester"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvRequestJumlah"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Jumlah kantong butuh"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvRequestHape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="No. telp requester"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvRequestNamaDokter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama Dokter"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvRequestTelpRumahSakit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="No. Telp Rumah Sakit"
         android:textSize="24sp" />
 </LinearLayout>

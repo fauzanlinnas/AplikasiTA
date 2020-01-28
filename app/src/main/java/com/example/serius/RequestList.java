@@ -59,7 +59,6 @@ public class RequestList extends AppCompatActivity {
                     Date dateObj = null;
                     try {
                         dateObj = simpleDateFormat.parse(requestBlood.date);
-                        Log.d("TryBerhasil", String.valueOf(dateObj));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -84,8 +83,6 @@ public class RequestList extends AppCompatActivity {
                 myReqRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.d("RequestListGetUid", String.valueOf(dataSnapshot.getValue()));
-                        Log.d("RequestList", String.valueOf(reqRef.child(firebaseAuth.getUid())));
                         if (dataSnapshot.getValue() == null) {
                             startActivity(new Intent(RequestList.this, RequestActivity.class));
                         } else {

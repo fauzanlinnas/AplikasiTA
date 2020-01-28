@@ -15,21 +15,28 @@ public class RequestAdapter extends ArrayAdapter<RequestBlood> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        TextView tvRequestNama, tvRequestGoldar, tvRequestJumlah, tvRequestHape, tvRequestNamaDokter, tvRequestTelpRumahSakit;
+
         RequestBlood request = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.request_list, parent, false);
         }
 
-        TextView tvRequestNama = convertView.findViewById(R.id.tvRequestNama);
-        TextView tvRequestGoldar = convertView.findViewById(R.id.tvRequestGoldar);
-        TextView tvRequestJumlah = convertView.findViewById(R.id.tvRequestJumlah);
-        TextView tvRequestHape = convertView.findViewById(R.id.tvRequestHape);
+        tvRequestNama = convertView.findViewById(R.id.tvRequestNama);
+        tvRequestGoldar = convertView.findViewById(R.id.tvRequestGoldar);
+        tvRequestJumlah = convertView.findViewById(R.id.tvRequestJumlah);
+        tvRequestHape = convertView.findViewById(R.id.tvRequestHape);
+        tvRequestNamaDokter = convertView.findViewById(R.id.tvRequestNamaDokter);
+        tvRequestTelpRumahSakit = convertView.findViewById(R.id.tvRequestTelpRumahSakit);
 
-        tvRequestNama.setText(request.name);
-        tvRequestGoldar.setText(request.goldar);
-        tvRequestJumlah.setText("Kebutuhan kantong: " + request.jumlah);
-        tvRequestHape.setText(request.hape);
+
+        tvRequestNama.setText(request.getName());
+        tvRequestGoldar.setText(request.getGoldar());
+        tvRequestJumlah.setText("Kebutuhan kantong: " + request.getJumlah());
+        tvRequestHape.setText(request.getHape());
+        tvRequestNamaDokter.setText(request.getNamaDokter());
+        tvRequestTelpRumahSakit.setText(request.getNoTelpRumahSakit());
 
         return convertView;
     }

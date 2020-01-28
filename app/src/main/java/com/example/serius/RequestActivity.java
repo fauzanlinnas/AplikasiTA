@@ -6,12 +6,10 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +21,9 @@ import java.util.Calendar;
 
 public class RequestActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private EditText reqName, reqGoldar, reqJumlah, reqTelepon;
+    private EditText reqName, reqGoldar, reqJumlah, reqTelepon, namaDokter, telpRumahSakit;
     private Button btnReq, reqDate;
-    String name, goldar, jumlah, telepon, date;
+    String name, goldar, jumlah, telepon, dokter, teleponRumahSakit, date;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -39,6 +37,8 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
         reqGoldar = findViewById(R.id.etRequestGoldar);
         reqJumlah = findViewById(R.id.etRequestJumlah);
         reqTelepon = findViewById(R.id.etRequestTelepon);
+        namaDokter = findViewById(R.id.etRequestNamaDokter);
+        telpRumahSakit = findViewById(R.id.etRequestTelpRumahSakit);
         reqDate = findViewById(R.id.datePicker);
         btnReq = findViewById(R.id. btnRequestAdd);
 
@@ -57,11 +57,11 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
                     // Upload data to database
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Request");
                     DatabaseReference reqRef = rootRef.child(firebaseAuth.getUid());
-                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, firebaseAuth.getUid(), date);
+                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, dokter, teleponRumahSakit, date, firebaseAuth.getUid());
                     reqRef.setValue(requestBlood);
                     Toast.makeText(RequestActivity.this, "Request Darah Berhasil", Toast.LENGTH_SHORT).show();
-                    finish();
                     startActivity(new Intent(RequestActivity.this, SecondActivity.class));
+                    finish();
                 }
             }
         });
@@ -74,9 +74,12 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
         goldar = reqGoldar.getText().toString();
         jumlah = reqJumlah.getText().toString();
         telepon = reqTelepon.getText().toString();
+        dokter = namaDokter.getText().toString();
+        teleponRumahSakit = telpRumahSakit.getText().toString();
+        // deklarasi "date" di fungsi "onDateSetonDateSet"
 
-        if (name.isEmpty() || goldar.isEmpty() || jumlah.isEmpty() || telepon.isEmpty() || date.isEmpty()) {
-            Toast.makeText(this, "Tolong isi semua data!", Toast.LENGTH_SHORT).show();
+        if (name.isEmpty() || goldar.isEmpty() || jumlah.isEmpty() || telepon.isEmpty() || date.isEmpty() || dokter.isEmpty() || teleponRumahSakit.isEmpty()) {
+            Toast.makeText(this, "Semua data wajib diisi", Toast.LENGTH_SHORT).show();
         } else {
             result = true;
         }
