@@ -17,17 +17,23 @@
     </item>
 
     <item
-        android:id="@+id/profileMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Profile">
-    </item>
-
-    <item
         android:id="@+id/requested"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         app:showAsAction="never"
         android:title="Request Detail">
     </item>
 
+    <item
+        android:id="@+id/appointment"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:title="Appointment">
+    </item>
+
+    <item
+        android:id="@+id/profileMenu"
+        android:orderInCategory="500"
+        app:showAsAction="never"
+        android:title="Profile">
+    </item>
 </menu>

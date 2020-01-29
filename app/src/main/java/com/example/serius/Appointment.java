@@ -6,11 +6,11 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(String uidRequester, String uidDonor, String tanggal, String jam) {
-        this.uidRequester = uidRequester;
-        this.uidDonor = uidDonor;
-        this.tanggal = tanggal;
-        this.jam = jam;
+    public Appointment(String _uidRequester, String _uidDonor, String _tanggal, String _jam) {
+        this.uidRequester = _uidRequester;
+        this.uidDonor = _uidDonor;
+        this.tanggal = _tanggal;
+        this.jam = _jam;
     }
 
     public String getUidRequester() {

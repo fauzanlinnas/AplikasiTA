@@ -193,12 +193,16 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(new Intent(SecondActivity.this ,RequestList.class));
                 break;
             }
-            case R.id.profileMenu: {
-                startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
-                break;
-            }
             case R.id.requested: {
                 startActivity(new Intent(SecondActivity.this, YourRequested.class));
+                break;
+            }
+            case R.id.appointment: {
+                startActivity(new Intent(SecondActivity.this, AppointmentActivity.class));
+                break;
+            }
+            case R.id.profileMenu: {
+                startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
                 break;
             }
         }
