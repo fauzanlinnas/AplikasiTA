@@ -1,12 +1,13 @@
 package com.example.serius;
 
 public class Appointment {
-    public String uidRequester, uidDonor, tanggal, jam;
+    public String key, uidRequester, uidDonor, tanggal, jam;
 
     public Appointment() {
     }
 
-    public Appointment(String _uidRequester, String _uidDonor, String _tanggal, String _jam) {
+    public Appointment(String _key, String _uidRequester, String _uidDonor, String _tanggal, String _jam) {
+        this.key = _key;
         this.uidRequester = _uidRequester;
         this.uidDonor = _uidDonor;
         this.tanggal = _tanggal;

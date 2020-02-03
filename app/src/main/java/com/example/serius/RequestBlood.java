@@ -11,11 +11,12 @@ public class RequestBlood {
     public String noTelpRumahSakit;
     public String date;
     public String uId;
+    public Boolean approved;
 
     public RequestBlood() {
     }
 
-    public RequestBlood(String _name, String _goldar, String _jumlah, String _hape, String _namaDokter, String _noTelpRumahSakit, String _date, String _uId) {
+    public RequestBlood(String _name, String _goldar, String _jumlah, String _hape, String _namaDokter, String _noTelpRumahSakit, String _date, String _uId, Boolean _approved) {
         this.name = _name;
         this.goldar = _goldar;
         this.jumlah = _jumlah;
@@ -24,6 +25,7 @@ public class RequestBlood {
         this.noTelpRumahSakit = _noTelpRumahSakit;
         this.date = _date;
         this.uId = _uId;
+        this.approved = _approved;
     }
 
     public String getName() { return name; }

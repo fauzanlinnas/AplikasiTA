@@ -76,15 +76,19 @@ public class AppointmentForm extends AppCompatActivity implements DatePickerDial
         btnMake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeAppointmentClass();
+                if (validate(hour, minute, date)) {
+                    pushRef = appointmentRef.push();
+                    String key = pushRef.getKey();
 
-                pushRef = appointmentRef.push();
-                pushRef.setValue(appointment);
+                    makeAppointmentClass(key);
 
-                FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getUid()).child("dataRequested").setValue(null);
+                    pushRef.setValue(appointment);
 
-                Toast.makeText(AppointmentForm.this, "Appointment created", Toast.LENGTH_SHORT).show();
-                finish();
+                    FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getUid()).child("dataRequested").setValue(null);
+
+                    Toast.makeText(AppointmentForm.this, "Appointment created", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }
@@ -123,11 +127,11 @@ public class AppointmentForm extends AppCompatActivity implements DatePickerDial
         btnDatePicker.setText(displayDate);
     }
 
-    public void makeAppointmentClass() {
+    public void makeAppointmentClass(String key) {
         uidDonor = firebaseAuth.getUid();
         // date di definisikan pada fungsi onDateSet
         waktuAppointment = hour + ":" + minute;
-        appointment = new Appointment(uidRequester, uidDonor, date, waktuAppointment);
+        appointment = new Appointment(key, uidRequester, uidDonor, date, waktuAppointment);
     }
 }
 

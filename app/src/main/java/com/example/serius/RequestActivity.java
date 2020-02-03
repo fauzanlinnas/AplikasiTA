@@ -57,7 +57,7 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
                     // Upload data to database
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Request");
                     DatabaseReference reqRef = rootRef.child(firebaseAuth.getUid());
-                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, dokter, teleponRumahSakit, date, firebaseAuth.getUid());
+                    RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, dokter, teleponRumahSakit, date, firebaseAuth.getUid(), false);
                     reqRef.setValue(requestBlood);
                     Toast.makeText(RequestActivity.this, "Request Darah Berhasil", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RequestActivity.this, SecondActivity.class));

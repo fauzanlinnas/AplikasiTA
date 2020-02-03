@@ -46,7 +46,6 @@ public class SecondActivity extends AppCompatActivity {
     private DatabaseReference donorRef;
     private ArrayList<UserProfile> userProfileArrayList;
     private UserProfile userProfile;
-    private FireMissilesDialogFragment exampleDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class SecondActivity extends AppCompatActivity {
         listView = findViewById(R.id.lvDonorList);
 
         userProfile = new UserProfile();
-        exampleDialog = new FireMissilesDialogFragment();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -87,10 +85,9 @@ public class SecondActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // userProfileArrayList.get(i) akan menghasilkan object User
                 DatabaseReference userRef = donorRef.child(String.valueOf(userProfileArrayList.get(i).userToken)).child("dataRequested");
                 userRef.setValue(firebaseAuth.getUid());
-                // Toast.makeText(SecondActivity.this, String.valueOf(userProfileArrayList.get(i).userName), Toast.LENGTH_SHORT).show();
-                // sendNotification("You have been requested");
             }
         });
 
@@ -108,28 +105,6 @@ public class SecondActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public static class FireMissilesDialogFragment extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Request blood?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                            Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            return builder.create();
-        }
     }
 
     private void sendNotification(String messageBody) {
