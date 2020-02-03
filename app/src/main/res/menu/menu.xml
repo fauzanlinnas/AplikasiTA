@@ -13,28 +13,27 @@
         android:id="@+id/requestList"
         android:orderInCategory="200"
         app:showAsAction="never"
-        android:title="Request">
+        android:title="Request List">
+    </item>
+
+    <item
+        android:id="@+id/requested"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:title="Request Detail">
+    </item>
+
+    <item
+        android:id="@+id/appointment"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:title="Appointment">
     </item>
 
     <item
         android:id="@+id/profileMenu"
-        android:orderInCategory="200"
+        android:orderInCategory="500"
         app:showAsAction="never"
         android:title="Profile">
     </item>
-
-    <item
-        android:id="@+id/refreshMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Refresh">
-    </item>
-
-    <item
-        android:id="@+id/wekaMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Weka">
-    </item>
-
 </menu>

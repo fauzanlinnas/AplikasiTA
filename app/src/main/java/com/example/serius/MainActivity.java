@@ -18,6 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private TextView forgotPassword;
-    String token;
+    String token, isUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
-            finish();
-            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            checkUserType();
         }
 
         Login.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     // Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    checkEmailVerification();
+                    checkUserType();
                 } else {
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     loginCounter--;
@@ -103,18 +108,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void checkEmailVerification() {
-        FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-        Boolean emailflag = firebaseUser.isEmailVerified();
+    private void checkUserType() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = usersRef.orderByChild("userToken").equalTo(firebaseAuth.getUid());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("CheckUserType", String.valueOf(dataSnapshot));
+                isUser = String.valueOf(dataSnapshot.getValue());
+            }
 
-        startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-//        if (emailflag) {
-//            finish();
-//            startActivity(new Intent(MainActivity.this, SecondActivity.class));
-//        } else {
-//            Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show();
-//            firebaseAuth.signOut();
-//        }
+            }
+        });
+
+        if (isUser != null) {
+            Log.d("CheckUserType1", isUser);
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+        } else {
+            startActivity(new Intent(MainActivity.this, InstitutionAppointment.class));
+        }
     }
 }

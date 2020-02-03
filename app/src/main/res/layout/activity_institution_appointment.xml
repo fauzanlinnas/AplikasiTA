@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".InstitutionAppointment">
 
     <ListView
-        android:id="@+id/lvDonorList"
+        android:id="@+id/lvInstitutionAppointmentList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"/>
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="211dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
