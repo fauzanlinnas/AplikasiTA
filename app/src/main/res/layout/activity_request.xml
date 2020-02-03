@@ -58,11 +58,11 @@
         app:layout_constraintTop_toBottomOf="@+id/etRequestJumlah" />
 
     <EditText
-        android:id="@+id/etRequestNamaDokter"
+        android:id="@+id/etRequestNamaTempat"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nama dokter yang menangani"
+        android:hint="Tempat donor"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRequestNamaDokter" />
+        app:layout_constraintTop_toBottomOf="@+id/etRequestNamaTempat" />
 
     <Button
         android:id="@+id/btnRequestAdd"

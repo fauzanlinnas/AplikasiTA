@@ -15,7 +15,7 @@ public class RequestAdapter extends ArrayAdapter<RequestBlood> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView tvRequestNama, tvRequestGoldar, tvRequestJumlah, tvRequestHape, tvRequestNamaDokter, tvRequestTelpRumahSakit;
+        TextView tvRequestNama, tvRequestGoldar, tvRequestJumlah, tvRequestHape, tvRequestTempatDonor, tvRequestTelpRumahSakit;
 
         RequestBlood request = getItem(position);
 
@@ -27,7 +27,7 @@ public class RequestAdapter extends ArrayAdapter<RequestBlood> {
         tvRequestGoldar = convertView.findViewById(R.id.tvRequestGoldar);
         tvRequestJumlah = convertView.findViewById(R.id.tvRequestJumlah);
         tvRequestHape = convertView.findViewById(R.id.tvRequestHape);
-        tvRequestNamaDokter = convertView.findViewById(R.id.tvRequestNamaDokter);
+        tvRequestTempatDonor = convertView.findViewById(R.id.tvRequestTempatDonor);
         tvRequestTelpRumahSakit = convertView.findViewById(R.id.tvRequestTelpRumahSakit);
 
 
@@ -35,7 +35,7 @@ public class RequestAdapter extends ArrayAdapter<RequestBlood> {
         tvRequestGoldar.setText(request.getGoldar());
         tvRequestJumlah.setText("Kebutuhan kantong: " + request.getJumlah());
         tvRequestHape.setText(request.getHape());
-        tvRequestNamaDokter.setText(request.getNamaDokter());
+        tvRequestTempatDonor.setText(request.getTempat());
         tvRequestTelpRumahSakit.setText(request.getNoTelpRumahSakit());
 
         return convertView;

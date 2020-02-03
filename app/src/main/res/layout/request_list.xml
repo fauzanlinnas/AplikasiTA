@@ -34,10 +34,10 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/tvRequestNamaDokter"
+        android:id="@+id/tvRequestTempatDonor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nama Dokter"
+        android:text="Nama Tempat Donor"
         android:textSize="24sp" />
 
     <TextView
