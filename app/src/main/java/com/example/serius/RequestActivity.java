@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -58,6 +59,7 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Request");
                     DatabaseReference reqRef = rootRef.child(firebaseAuth.getUid());
                     RequestBlood requestBlood = new RequestBlood(name, goldar, jumlah, telepon, tempat, teleponRumahSakit, date, firebaseAuth.getUid(), false);
+                    Log.d("ReqRequestBlood", String.valueOf(requestBlood));
                     reqRef.setValue(requestBlood);
                     Toast.makeText(RequestActivity.this, "Request Darah Berhasil", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RequestActivity.this, SecondActivity.class));
@@ -80,6 +82,7 @@ public class RequestActivity extends AppCompatActivity implements DatePickerDial
 
         if (name.isEmpty() || goldar.isEmpty() || jumlah.isEmpty() || telepon.isEmpty() || date.isEmpty() || tempat.isEmpty() || teleponRumahSakit.isEmpty()) {
             Toast.makeText(this, "Semua data wajib diisi", Toast.LENGTH_SHORT).show();
+            Log.e("BloodReqAct", "Input error");
         } else {
             result = true;
         }

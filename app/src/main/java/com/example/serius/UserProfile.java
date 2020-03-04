@@ -10,16 +10,17 @@ public class UserProfile {
     public String userAge;
     public String userGoldar;
     public String userPenyakit;
-    public String userToken;
+    public String userId;
     public List<String> dataDonor;
     public double userWillDonor;
+    public Boolean isAvailable;
 
     public UserProfile() {
     }
 
     public UserProfile(String _userEmail, String _userName, String _userAddress, String _userTelepon,
-                       String _userAge, String _userGoldar, String _userPenyakit, String _userToken,
-                       List<String> _dataDonor, double _userWillDonor) {
+                       String _userAge, String _userGoldar, String _userPenyakit, String _userId,
+                       List<String> _dataDonor, double _userWillDonor, Boolean _isAvailable) {
 
         this.userEmail = _userEmail;
         this.userName = _userName;
@@ -28,9 +29,10 @@ public class UserProfile {
         this.userAge = _userAge;
         this.userGoldar = _userGoldar;
         this.userPenyakit = _userPenyakit;
-        this.userToken = _userToken;
+        this.userId = _userId;
         this.dataDonor = _dataDonor;
         this.userWillDonor = _userWillDonor;
+        this.isAvailable = _isAvailable;
     }
 
     public String getUserAge() { return userAge; }
@@ -73,7 +75,15 @@ public class UserProfile {
         return userWillDonor;
     }
 
-    public String getUserToken() {
-        return userToken;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
     }
 }

@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -46,34 +47,59 @@ public class SecondActivity extends AppCompatActivity {
     private DatabaseReference donorRef;
     private ArrayList<UserProfile> userProfileArrayList;
     private UserProfile userProfile;
+    private Boolean isHaveRequest = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        setTitle("List Donor");
 
         listView = findViewById(R.id.lvDonorList);
 
         userProfile = new UserProfile();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
+
         donorRef = firebaseDatabase.getReference("Users");
+
         userProfileArrayList = new ArrayList<>();
         final UsersAdapter adapter = new UsersAdapter(this, userProfileArrayList);
 
-        donorRef.addValueEventListener(new ValueEventListener() {
+        Query query = donorRef.orderByChild("userWillDonor");
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    Log.d("SecondSnapshot", String.valueOf(ds));
                     userProfile = ds.getValue(UserProfile.class);
-                    if (userProfile.userWillDonor == 0 && !(ds.getKey().equals(firebaseAuth.getUid()))) {
-                        adapter.add(userProfile);
-                    }
+                        if (!(ds.getKey().equals(firebaseAuth.getUid())) && userProfile.isAvailable) {
+                            adapter.add(userProfile);
+                            Log.d("SecActDonorList", String.valueOf(userProfile));
+                        }
                 }
                 listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference isHaveRequestRef = firebaseDatabase.getReference("Request").child(firebaseAuth.getUid());
+        isHaveRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("SecondActivityLog", String.valueOf(dataSnapshot.getValue()));
+                    isHaveRequest = true;
+                } else {
+                    isHaveRequest = false;
+                }
             }
 
             @Override
@@ -85,9 +111,14 @@ public class SecondActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // userProfileArrayList.get(i) akan menghasilkan object User
-                DatabaseReference userRef = donorRef.child(String.valueOf(userProfileArrayList.get(i).userToken)).child("dataRequested");
-                userRef.setValue(firebaseAuth.getUid());
+                if (isHaveRequest) {
+                    // userProfileArrayList.get(i) akan menghasilkan object User
+                    DatabaseReference userRef = donorRef.child(String.valueOf(userProfileArrayList.get(i).userId)).child("dataRequested");
+                    userRef.setValue(firebaseAuth.getUid());
+                    Toast.makeText(SecondActivity.this, "Berhasil meminta user untuk menjadi donor", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SecondActivity.this, "Tidak dapat meminta donor karena anda tidak mempunyai request darah", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private EditText userName, userEmail, userPassword, userAge;
     private EditText userTelepon, userAddress, userGoldar, userPenyakit;
+    private Boolean isAvailable;
     private EditText userRecency, userFrequency, userTime;
     String[] dataDonorArr = new String[3];
     List<String> dataDonor;
@@ -52,7 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ImageView userProfilePic;
 
-    String email, name, age, password, address, telepon, goldar, penyakit, token;
+    String email, name, age, password, address, telepon, goldar, penyakit, userId;
 
     private FirebaseStorage firebaseStorage;
     private static int PICK_IMAGE = 123;
@@ -60,7 +62,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private StorageReference storageReference;
 
     private Classifier mClassifier = null;
-    private double hasilClassify;
+    private double hasilClassify, hasilCobaClassify;
+    private double[] cobaClassify;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -103,7 +106,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validate()) {
                     // Run weka
-                    wekaLoadModel();
+                    klasifikasiData();
 
                     //Upload data to the database
                     String user_email = userEmail.getText().toString().trim();
@@ -165,14 +168,24 @@ public class RegistrationActivity extends AppCompatActivity {
         goldar = userGoldar.getText().toString();
         penyakit = userPenyakit.getText().toString();
         dataDonorArr[0] = userRecency.getText().toString();
+
+        isAvailable = Integer.parseInt(dataDonorArr[0]) >= 3 || Integer.parseInt(dataDonorArr[0]) == 0;
+
         dataDonorArr[1] = userFrequency.getText().toString();
         dataDonorArr[2] = userTime.getText().toString();
         dataDonor = Arrays.asList(dataDonorArr);
 
+        /*
+        R (Recency - months since last donation)
+        F (Frequency - total number of donation)
+        T (Time - months since first donation)
+        */
 
-        if (name.isEmpty() || password.isEmpty() || email.isEmpty() || age.isEmpty() || imagePath == null
+
+        if (name.isEmpty() || password.isEmpty() || email.isEmpty() || age.isEmpty()
                 || address.isEmpty() || telepon.isEmpty() || goldar.isEmpty() || penyakit.isEmpty()) {
             Toast.makeText(this, "Please enter all the details!", Toast.LENGTH_SHORT).show();
+            Log.e("RegAct", "Input error");
         } else {
             result = true;
         }
@@ -180,7 +193,8 @@ public class RegistrationActivity extends AppCompatActivity {
         return result;
     }
 
-    public void wekaLoadModel() {
+    public void klasifikasiData() {
+        // Load file .model
         AssetManager assetManager = getAssets();
         try {
             mClassifier = (Classifier) weka.core.SerializationHelper.read(assetManager.open("donordarah.model"));
@@ -191,9 +205,11 @@ public class RegistrationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(mClassifier==null){
+        if (mClassifier==null){
             Toast.makeText(this, "Model not loaded!", Toast.LENGTH_SHORT).show();
             return;
+        } else {
+            Log.d("RegActModelLoaded", "Model loaded");
         }
 
         // we need those for creating new instances later
@@ -224,7 +240,7 @@ public class RegistrationActivity extends AppCompatActivity {
         // last feature is target variable
         dataUnpredicted.setClassIndex(dataUnpredicted.numAttributes() - 1);
 
-        // create new instance: this one should fall into the setosa domain
+        // create new instance
         DenseInstance newInstance = new DenseInstance(dataUnpredicted.numAttributes()) {
             {
                 setValue(attributeRecency, Double.parseDouble(dataDonorArr[0]));
@@ -234,6 +250,7 @@ public class RegistrationActivity extends AppCompatActivity {
         };
         // reference to dataset
         newInstance.setDataset(dataUnpredicted);
+        Log.d("RegActInstance", String.valueOf(dataUnpredicted));
 
         // predict new sample
         try {
@@ -241,6 +258,15 @@ public class RegistrationActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            cobaClassify = mClassifier.distributionForInstance(newInstance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.d("RegActHasilClassify", Arrays.toString(cobaClassify));
+        hasilCobaClassify = cobaClassify[0];
     }
 
     private void sendEmailVerification() {
@@ -266,7 +292,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public void sendUserData() {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Users");
         DatabaseReference userRef = rootRef.child(firebaseAuth.getUid());
-        StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic"); // User ID/images/profile_pic.png
+        /*StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic"); // User ID/images/profile_pic.png
         UploadTask uploadTask = imageReference.putFile(imagePath);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -278,9 +304,10 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(RegistrationActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
             }
-        });
-        token = firebaseAuth.getUid();
-        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, token, dataDonor, hasilClassify);
+        });*/
+        userId = firebaseAuth.getUid();
+        UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, userId, dataDonor, hasilCobaClassify, isAvailable);
+        Log.d("RegActUserProfile", String.valueOf(userProfile));
         userRef.setValue(userProfile);
     }
 }

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".YourRequested">
 
+    <ImageView
+        android:id="@+id/requestedArrowAtas"
+        android:layout_width="128dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="265dp"
+        app:layout_constraintBottom_toBottomOf="@+id/llRequestedBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/llRequestedBy"
+        app:layout_constraintTop_toTopOf="@+id/llRequestedBy"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_black_72dp" />
+
     <LinearLayout
         android:id="@+id/llRequestedBy"
         android:layout_width="match_parent"

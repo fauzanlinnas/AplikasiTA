@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class YourRequested extends AppCompatActivity {
     LinearLayout llAtas, llBawah;
     private TextView requestedName, requestedGoldar, requestedJumlah, requestedHape;
     private TextView yourRequestName, yourRequestGoldar, yourRequestJumlah, yourRequestHape;
+    private ImageView arrowAtas;
     private TextView noRequestedBy, noMyRequest;
     private String requesterUId;
     private FirebaseAuth firebaseAuth;
@@ -80,6 +82,7 @@ public class YourRequested extends AppCompatActivity {
                         } else {
                             // IF YOU ARE NOT REQUESTED
                             llAtas.setVisibility(View.GONE);
+                            arrowAtas.setVisibility(View.GONE);
                             noRequestedBy.setVisibility(View.VISIBLE);
                         }
                     }
@@ -131,6 +134,8 @@ public class YourRequested extends AppCompatActivity {
         requestedGoldar = findViewById(R.id.tvRequestedGoldar2);
         requestedJumlah = findViewById(R.id.tvRequestedJumlah2);
         requestedHape = findViewById(R.id.tvRequestedHape2);
+        arrowAtas = findViewById(R.id.requestedArrowAtas);
+
 
         // Your request text view
         llBawah = findViewById(R.id.llRequest);

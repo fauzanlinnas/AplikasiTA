@@ -6,17 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".RequestActivity">
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="301dp"
+        android:layout_height="72dp"
+        android:text="Request yang telah anda ajukan akan di setujui terlebih dahulu oleh instansi kesehatan tempat pasien berada sebelum ditampilkan pada list request"
+        android:textSize="14sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/etRequestNama"
+        app:layout_constraintEnd_toEndOf="@+id/etRequestNama"
+        app:layout_constraintStart_toStartOf="@+id/etRequestNama" />
+
     <EditText
         android:id="@+id/etRequestNama"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="96dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Nama"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

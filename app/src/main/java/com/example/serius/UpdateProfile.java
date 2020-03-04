@@ -36,8 +36,9 @@ public class UpdateProfile extends AppCompatActivity {
 
     private EditText newUserName, newUserEmail, newUserAge;
     private EditText newUserAddress, newUserTelepon, newUserGoldar, newUserPenyakit;
+    private Boolean isAvailable;
     List<String> newDataDonor;
-    private String token;
+    private String userId;
     double newUserWillDonor;
     private Button save;
     private FirebaseAuth firebaseAuth;
@@ -97,7 +98,8 @@ public class UpdateProfile extends AppCompatActivity {
                 newUserPenyakit.setText(userProfile.getUserPenyakit());
                 newDataDonor = userProfile.getDataDonor();
                 newUserWillDonor = userProfile.getUserWillDonor();
-                token = userProfile.getUserToken();
+                userId = userProfile.getUserId();
+                isAvailable = userProfile.getAvailable();
             }
 
             @Override
@@ -126,7 +128,7 @@ public class UpdateProfile extends AppCompatActivity {
                 String penyakit = newUserPenyakit.getText().toString();
                 List<String> dataDonor = newDataDonor;
 
-                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, token, dataDonor, newUserWillDonor);
+                UserProfile userProfile = new UserProfile(email, name, address, telepon, age, goldar, penyakit, userId, dataDonor, newUserWillDonor, isAvailable);
 
                 databaseReference.setValue(userProfile);
 

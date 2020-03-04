@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +27,7 @@ import java.util.Date;
 public class RequestList extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FloatingActionButton fabAddRequest;
+    private RelativeLayout fabAddRequest;
     private ListView listView;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reqRef;
@@ -37,6 +38,7 @@ public class RequestList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
+        setTitle("List Request");
 
         listView = findViewById(R.id.lvRequestList);
         fabAddRequest = findViewById(R.id.fabAddRequest);
@@ -65,6 +67,7 @@ public class RequestList extends AppCompatActivity {
 
                     if (new Date().before(dateObj)) {
                         adapter.add(requestBlood);
+                        Log.d("ReqListActBloodList", String.valueOf(requestBlood));
                     }
                 }
                 listView.setAdapter(adapter);

@@ -99,32 +99,57 @@
             android:hint="Penyakit"
             android:inputType="textShortMessage" />
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:text="Jumlah bulan sejak terakhir kali donor darah"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/etRecency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Jumlah bulan terakhir donor"
             android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Jumlah donor darah yang pernah dilakukan"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/etFrequency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Jumlah donor"
             android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Jumlah bulan sejak pertama kali donor darah"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/etTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Jumlah bulan sejak donor pertama kali"
             android:inputType="number" />

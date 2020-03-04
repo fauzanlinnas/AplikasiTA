@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private TextView forgotPassword;
-    String token, isUser;
+    String isUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,12 +110,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUserType() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = usersRef.orderByChild("userToken").equalTo(firebaseAuth.getUid());
+        Query query = usersRef.orderByChild("userId").equalTo(firebaseAuth.getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("CheckUserType", String.valueOf(dataSnapshot));
+                Log.d("CheckUserType1", String.valueOf(dataSnapshot));
                 isUser = String.valueOf(dataSnapshot.getValue());
+                Log.d("CheckUserType2", isUser);
+                if (isUser != null) {
+                    startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                } else {
+                    Log.d("CheckUserType3", "Masuk instansi");
+                    startActivity(new Intent(MainActivity.this, InstitutionAppointment.class));
+                }
             }
 
             @Override
@@ -123,12 +130,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        if (isUser != null) {
-            Log.d("CheckUserType1", isUser);
-            startActivity(new Intent(MainActivity.this, SecondActivity.class));
-        } else {
-            startActivity(new Intent(MainActivity.this, InstitutionAppointment.class));
-        }
     }
 }

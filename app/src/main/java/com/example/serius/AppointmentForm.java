@@ -97,7 +97,7 @@ public class AppointmentForm extends AppCompatActivity implements DatePickerDial
         Boolean result = false;
 
         if (_hour.isEmpty() || _minute.isEmpty() || _date.isEmpty()) {
-            Toast.makeText(this, "Tanggal dan jam harus dipilih!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tanggal dan jam harus dipilih!", Toast.LENGTH_LONG).show();
         } else {
             result = true;
         }
